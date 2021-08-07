@@ -51,7 +51,7 @@ var timeblockObjects = [
 var currentDay = $("#currentDay");
 
 // MOMENT GLOBAL VARIABLE DECLARATIONS
-var todaysDate = moment().format("dddd, MMMM Do YYYY");
+var todaysDate = moment().format("dddd, MMMM Do, YYYY");
 var currentHour = moment().format("HH");
 
 // put today's date in the DOM header element
@@ -64,7 +64,7 @@ $.each(timeblockObjects, function () {
   timeblockContainer.addClass("row");
   $(".container").append(timeblockContainer);
 
-  // time div elements
+  // timediv elements
   var timeblockTime = $("<div>");
   timeblockTime.text(`${this.hour}${this.aORp}`);
   timeblockTime.addClass("hour col-md-1");
@@ -75,7 +75,7 @@ $.each(timeblockObjects, function () {
   timeblockInput.addClass("description col-md-10");
   timeblockContainer.append(timeblockInput);
 
-  //compare current time to current index and style text area element based on if current time is past, present, or future
+  // compare current time to current index and style text area element based on if current time is past, present, or future
   if (this.milTime < currentHour) {
     timeblockInput.addClass("past");
   } else if (this.milTime === currentHour) {
@@ -83,6 +83,35 @@ $.each(timeblockObjects, function () {
   } else if (this.milTime > currentHour) {
     timeblockInput.addClass("future");
   }
-  console.log(this.hour);
-  console.log(currentHour);
+
+  // save button elements
+  var timeblockSave = $("<button>");
+  var saveBtn = $("<i>");
+  timeblockSave.addClass("saveBtn col-md-1");
+  timeblockSave.append(saveBtn);
+  saveBtn.addClass("far fa-save fa-lg");
+  timeblockContainer.append(timeblockSave);
 });
+
+// retrieve row input from storage
+function retrieveInputFromLocal() {
+  var email = localStorage.getItem("email");
+  var password = localStorage.getItem("password");
+
+  if (!email || !password) {
+    return;
+  }
+
+  userEmailSpan.textContent = email;
+  userPasswordSpan.textContent = password;
+}
+
+// store row input to local storage
+function storeInputToLocal(event) {
+  event.preventDefault();
+  var userAgendaInput = $(".description").value;
+  console.log(userAgendaInput);
+  localStorage.setItem("key", userAgendaInput);
+}
+// event listener for save button click
+$(".saveBtn").on("click", ".description", storeInputToLocal);
