@@ -1,5 +1,5 @@
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 16px;
   line-height: 1;
 }
@@ -29,11 +29,12 @@ textarea {
   text-align: center;
   border-radius: 15px;
 }
-
+/* input field */
 .row {
   white-space: pre-wrap;
   height: 80px;
   border-top: 1px solid white;
+  background-color: rgba(0, 0, 0, 0.096);
 }
 
 .hour {
