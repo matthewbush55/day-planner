@@ -82,7 +82,6 @@ function init() {
     timeblockObjects = previousInput;
   }
 
-  storeUserInput();
   getUserInput();
 }
 
@@ -93,8 +92,18 @@ function storeUserInput() {
 
 // fetch data from local storage
 function getUserInput() {
-  $.each(timeblockObjects, function () {});
+  $.each(timeblockObjects, function () {
+    // find the index
+    var index = this.index;
+    // find the corresponding element to this
+    var textareaEl = $("textarea[data-index=" + index + "]");
+    // get the agenda
+    var agenda = this.agenda;
+    // set the textarea's value
+    textareaEl.val(agenda);
+  });
 }
+
 // dynamically generate timeblock elements
 $.each(timeblockObjects, function () {
   // timeblock container
