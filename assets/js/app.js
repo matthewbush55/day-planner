@@ -72,18 +72,18 @@ var currentDay = $("#currentDay");
 var todaysDate = moment().format("dddd, MMMM Do, YYYY");
 var currentHour = moment().format("HH");
 
-// GLOBAL VARIABLE DECLARATIONS
-var previousInput = JSON.parse(localStorage.getItem("timeblockObjects"));
-
 // put today's date in the DOM header element
 currentDay.text(todaysDate);
 
-//get content previously stored in local storage
+//get content previously stored in local storage for use on page load
 function init() {
   var previousInput = JSON.parse(localStorage.getItem("timeblockObjects"));
   if (previousInput) {
     timeblockObjects = previousInput;
   }
+
+  storeUserInput();
+  getUserInput();
 }
 
 // store data to local storage
@@ -93,9 +93,8 @@ function storeUserInput() {
 
 // fetch data from local storage
 function getUserInput() {
-  JSON.parse(localStorage.getItem("timeblockObjects"));
+  $.each(timeblockObjects, function () {});
 }
-
 // dynamically generate timeblock elements
 $.each(timeblockObjects, function () {
   // timeblock container
@@ -140,8 +139,10 @@ init();
 $(".saveBtn").on("click", function (event) {
   event.preventDefault();
   // get index of clicked save icon
-  var saveIndex = $(this).siblings(".description").attr("data-index");
+  var getIndex = $(this).siblings(".description").attr("data-index");
   // get value of the index textarea
-  timeblockObjects[saveIndex].agenda = $(this).siblings(".description").val();
+  timeblockObjects[getIndex].agenda = $(this).siblings(".description").val();
+  //   console.log(timeblockObjects[getIndex].agenda);
   storeUserInput();
+  getUserInput();
 });
